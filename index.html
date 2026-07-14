@@ -5,7 +5,122 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Andalucía Residencial | Agenda tu cita</title>
 <meta name="description" content="Conoce Andalucía Residencial en Tizayuca, Hidalgo. Prototipos, amenidades y atención personalizada por WhatsApp.">
-<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="./css/styles.css">
+<style id="cloudflare-style-fallback">
+:root{
+  --ink:#171717; --gold:#c78a38; --cream:#f5efe6; --muted:#6e6a63; --white:#fff;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:#fff}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+.container{width:min(1180px,92%);margin:auto}
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid #eee}
+.nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{font-family:Georgia,serif;font-size:22px;letter-spacing:.12em;font-weight:700}
+.brand span{display:block;font:11px Arial;letter-spacing:.34em;color:var(--gold);margin-top:4px}
+nav{display:flex;gap:24px;align-items:center;font-weight:700;font-size:14px}
+.nav-cta,.btn{display:inline-flex;align-items:center;justify-content:center;background:var(--gold);color:#fff;padding:14px 22px;border-radius:999px;font-weight:800}
+.hero{min-height:82vh;display:grid;place-items:center;position:relative;color:#fff;background-image:url('./assets/images/imagen_01.jpg');background-position:center 58%;background-size:cover;background-repeat:no-repeat}
+.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.75),rgba(0,0,0,.28))}
+.hero-content{position:relative;z-index:2;width:min(1100px,92%);padding:80px 0}
+.eyebrow{font-size:13px;letter-spacing:.32em;text-transform:uppercase;color:#f0c57c;font-weight:800}
+h1{font-family:Georgia,serif;font-size:clamp(48px,8vw,94px);line-height:.92;margin:18px 0 24px;max-width:780px}
+.hero p{font-size:clamp(18px,2.5vw,26px);max-width:700px;line-height:1.5}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
+.btn.secondary{background:transparent;border:1px solid rgba(255,255,255,.7)}
+.section{padding:90px 0}
+.section.alt{background:var(--cream)}
+.grid-2{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.section h2{font-family:Georgia,serif;font-size:clamp(38px,5vw,64px);line-height:1.05;margin:10px 0 22px}
+.lead{font-size:20px;line-height:1.7;color:var(--muted)}
+.about-image{border-radius:28px;overflow:hidden;box-shadow:0 20px 55px rgba(0,0,0,.16)}
+.features{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:30px}
+.feature{background:#fff;padding:22px;border-radius:18px;border:1px solid #eadfce}
+.feature b{display:block;font-size:18px;margin-bottom:8px}
+.feature span{color:var(--muted);font-size:14px}
+.amenity-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.amenity{position:relative;border-radius:24px;overflow:hidden;min-height:330px;background:#222}
+.amenity img{width:100%;height:100%;object-fit:cover}
+.amenity:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 40%,rgba(0,0,0,.82))}
+.amenity h3{position:absolute;z-index:2;left:22px;bottom:18px;color:#fff;font-family:Georgia,serif;font-size:28px;margin:0}
+.icon-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+.icon-card{background:#1c1c1c;color:#fff;padding:22px;border-radius:18px;min-height:130px}
+.icon-card b{color:#efc47b;font-size:19px}
+.icon-card p{margin:8px 0 0;color:#ddd;line-height:1.5;font-size:14px}
+.models{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.model{background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.1)}
+.model img{width:100%;height:370px;object-fit:contain;background:#efe9df}
+.model-body{padding:26px}
+.model h3{font-family:Georgia,serif;font-size:36px;margin:0 0 12px}
+.model ul{margin:0;padding-left:18px;color:var(--muted);line-height:1.8}
+.spec{margin-top:16px;font-weight:800;color:#8a5d25}
+.advisors{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;max-width:860px;margin:40px auto 0}
+.advisor{background:#fff;border-radius:26px;padding:30px;text-align:center;box-shadow:0 15px 40px rgba(0,0,0,.1)}
+.advisor img{width:180px;height:180px;object-fit:cover;border-radius:50%;margin:auto;border:5px solid #e1bd79}
+.advisor h3{font-family:Georgia,serif;font-size:30px;margin:18px 0 5px}
+.advisor p{color:var(--muted);margin:0}
+.cta-section{background:#151515;color:#fff;text-align:center}
+.cta-section h2{max-width:850px;margin:0 auto 22px}
+.cta-section p{max-width:760px;margin:0 auto 28px;color:#ddd;font-size:19px;line-height:1.6}
+.footer{background:#0b0b0b;color:#bbb;padding:28px 0;text-align:center;font-size:13px}
+.whatsapp-float{position:fixed;right:18px;bottom:18px;z-index:60;background:#23b95d;color:#fff;padding:15px 20px;border-radius:999px;font-weight:900;box-shadow:0 12px 30px rgba(0,0,0,.25)}
+@media(max-width:900px){
+  nav a:not(.nav-cta){display:none}
+  .grid-2,.features,.amenity-grid,.icon-grid,.models,.advisors{grid-template-columns:1fr 1fr}
+}
+@media(max-width:620px){
+  .nav{height:68px}.brand{font-size:17px}
+  .hero{min-height:74vh}
+  .section{padding:68px 0}
+  .grid-2,.features,.amenity-grid,.icon-grid,.models,.advisors{grid-template-columns:1fr}
+  .model img{height:300px}
+  .advisor img{width:145px;height:145px}
+  .whatsapp-float{left:16px;right:16px;text-align:center}
+}
+
+/* Ajustes finales de conversión y versión móvil */
+body{overflow-x:hidden}
+.hero{isolation:isolate}
+.hero:before{background:linear-gradient(90deg,rgba(0,0,0,.82) 0%,rgba(0,0,0,.53) 48%,rgba(0,0,0,.18) 100%)}
+.hero-content{max-width:1180px}
+.hero h1{text-shadow:0 3px 24px rgba(0,0,0,.38)}
+.hero p{text-shadow:0 2px 14px rgba(0,0,0,.45)}
+.btn,.nav-cta{transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
+.btn:hover,.nav-cta:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.18)}
+.model{transition:transform .22s ease,box-shadow .22s ease}
+.model:hover{transform:translateY(-4px);box-shadow:0 22px 52px rgba(0,0,0,.14)}
+.trust-strip{background:#171717;color:#fff;padding:20px 0}
+.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;text-align:center;font-weight:800}
+.trust-grid span{padding:8px 10px;border-right:1px solid rgba(255,255,255,.16)}
+.trust-grid span:last-child{border-right:0}
+.advisor .advisor-cta{display:inline-flex;margin-top:16px;background:var(--gold);color:#fff;padding:11px 17px;border-radius:999px;font-weight:800;font-size:14px}
+@media(max-width:900px){
+ .trust-grid{grid-template-columns:repeat(2,1fr)}
+ .trust-grid span:nth-child(2){border-right:0}
+}
+@media(max-width:620px){
+ header{position:sticky}
+ .nav{padding:0 2px}.nav-cta{padding:11px 14px;font-size:12px}
+ .hero{min-height:calc(100svh - 68px);background-position:center center;align-items:end}
+ .hero:before{background:linear-gradient(180deg,rgba(0,0,0,.28) 0%,rgba(0,0,0,.6) 48%,rgba(0,0,0,.9) 100%)}
+ .hero-content{padding:120px 0 74px}
+ h1{font-size:clamp(43px,13vw,62px);line-height:.96;margin-bottom:18px}
+ .hero p{font-size:18px;line-height:1.48}
+ .hero-actions{display:grid;grid-template-columns:1fr;width:100%}
+ .hero-actions .btn{width:100%;min-height:52px}
+ .section h2{text-align:left!important;font-size:40px}
+ .trust-grid{grid-template-columns:1fr 1fr;font-size:13px}
+ .trust-grid span{border-right:0;border-bottom:1px solid rgba(255,255,255,.13)}
+ .amenity{min-height:300px}
+ .model img{height:340px}
+ .advisors{gap:18px}
+ .whatsapp-float{bottom:12px;padding:14px 16px}
+ body{padding-bottom:72px}
+}
+
+</style>
 </head>
 <body>
 <header>
@@ -52,7 +167,7 @@
         <div class="feature"><b>Acceso directo</b><span>Por la autopista.</span></div>
       </div>
     </div>
-    <div class="about-image"><img src="assets/images/imagen_02.jpg" alt="Andalucía Residencial"></div>
+    <div class="about-image"><img src="./assets/images/imagen_02.jpg" alt="Andalucía Residencial"></div>
   </div>
 </section>
 
@@ -62,12 +177,12 @@
     <h2>Donde lo tienes todo</h2>
     <p class="lead">Espacios recreativos, sociales y deportivos para disfrutar una vida de calidad con tu familia.</p>
     <div class="amenity-grid">
-      <article class="amenity"><img src="assets/images/imagen_03.jpg" alt="Alberca"><h3>Alberca</h3></article>
-      <article class="amenity"><img src="assets/images/imagen_04.jpg" alt="Gimnasio al aire libre"><h3>Gimnasio al aire libre</h3></article>
-      <article class="amenity"><img src="assets/images/imagen_05.jpg" alt="Pet Park"><h3>Pet Park</h3></article>
-      <article class="amenity"><img src="assets/images/imagen_06.jpg" alt="Ejercitadores"><h3>Ejercitadores</h3></article>
-      <article class="amenity"><img src="assets/images/imagen_02.jpg" alt="Fachadas del desarrollo"><h3>Fachadas</h3></article>
-      <article class="amenity"><img src="assets/images/imagen_07.jpg" alt="Cercanía al AIFA"><h3>Conectividad</h3></article>
+      <article class="amenity"><img src="./assets/images/imagen_03.jpg" alt="Alberca"><h3>Alberca</h3></article>
+      <article class="amenity"><img src="./assets/images/imagen_04.jpg" alt="Gimnasio al aire libre"><h3>Gimnasio al aire libre</h3></article>
+      <article class="amenity"><img src="./assets/images/imagen_05.jpg" alt="Pet Park"><h3>Pet Park</h3></article>
+      <article class="amenity"><img src="./assets/images/imagen_06.jpg" alt="Ejercitadores"><h3>Ejercitadores</h3></article>
+      <article class="amenity"><img src="./assets/images/imagen_02.jpg" alt="Fachadas del desarrollo"><h3>Fachadas</h3></article>
+      <article class="amenity"><img src="./assets/images/imagen_07.jpg" alt="Cercanía al AIFA"><h3>Conectividad</h3></article>
     </div>
     <div class="icon-grid">
       <div class="icon-card"><b>Gimnasio al aire libre</b><p>Espacios para mantenerte activo.</p></div>
@@ -86,19 +201,19 @@
     <h2>Cuatro prototipos</h2>
     <div class="models">
       <article class="model">
-        <img src="assets/images/imagen_08.jpg" alt="Prototipo Jerez">
+        <img src="./assets/images/imagen_08.jpg" alt="Prototipo Jerez">
         <div class="model-body"><h3>Jerez</h3><ul><li>Sala, comedor y cocina</li><li>Patio trasero</li><li>1½ baños</li><li>2 recámaras</li><li>Balcón y estacionamiento</li></ul><div class="spec">Construcción: 58.30 m² · Lote: 67.50 m²</div></div>
       </article>
       <article class="model">
-        <img src="assets/images/imagen_09.jpg" alt="Prototipo Palma">
+        <img src="./assets/images/imagen_09.jpg" alt="Prototipo Palma">
         <div class="model-body"><h3>Palma</h3><ul><li>Sala, comedor y cocina</li><li>Patio trasero</li><li>1½ baños</li><li>2 recámaras</li><li>Estancia familiar, balcón y estacionamiento</li></ul><div class="spec">Construcción: 69.35 m² · Lote: 67.50 m²</div></div>
       </article>
       <article class="model">
-        <img src="assets/images/imagen_10.jpg" alt="Prototipo Palermo">
+        <img src="./assets/images/imagen_10.jpg" alt="Prototipo Palermo">
         <div class="model-body"><h3>Palermo</h3><ul><li>Sala, comedor y cocina</li><li>Patio trasero</li><li>1½ baños</li><li>3 recámaras</li><li>Balcón y estacionamiento</li></ul><div class="spec">Construcción: 78.65 m² · Lote: 90 m²</div></div>
       </article>
       <article class="model">
-        <img src="assets/images/imagen_11.jpg" alt="Prototipo Cartagena">
+        <img src="./assets/images/imagen_11.jpg" alt="Prototipo Cartagena">
         <div class="model-body"><h3>Cartagena</h3><ul><li>Sala, comedor y cocina</li><li>Patio trasero</li><li>2½ baños</li><li>3 recámaras</li><li>Balcón y estacionamiento</li></ul><div class="spec">Construcción: 97.59 m² · Lote: 90 m²</div></div>
       </article>
     </div>
@@ -110,8 +225,8 @@
     <div class="eyebrow">Atención personalizada</div>
     <h2 style="text-align:center">Conoce a tus asesores</h2>
     <div class="advisors">
-      <article class="advisor"><img src="assets/images/imagen_12.jpg" alt="Lizeth López"><h3>Lizeth López</h3><p>Asesora inmobiliaria</p><a class="advisor-cta" href="https://wa.me/525521775122?text=Hola%20Lizeth%2C%20quiero%20informaci%C3%B3n%20sobre%20Andaluc%C3%ADa%20Residencial" target="_blank" rel="noopener">Contactar por WhatsApp</a></article>
-      <article class="advisor"><img src="assets/images/imagen_13.jpg" alt="Luis Montaño"><h3>Luis Montaño</h3><p>Asesor inmobiliario</p><a class="advisor-cta" href="https://wa.me/525521775122?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20Andaluc%C3%ADa%20Residencial" target="_blank" rel="noopener">Solicitar información</a></article>
+      <article class="advisor"><img src="./assets/images/imagen_12.jpg" alt="Lizeth López"><h3>Lizeth López</h3><p>Asesora inmobiliaria</p><a class="advisor-cta" href="https://wa.me/525521775122?text=Hola%20Lizeth%2C%20quiero%20informaci%C3%B3n%20sobre%20Andaluc%C3%ADa%20Residencial" target="_blank" rel="noopener">Contactar por WhatsApp</a></article>
+      <article class="advisor"><img src="./assets/images/imagen_13.jpg" alt="Luis Montaño"><h3>Luis Montaño</h3><p>Asesor inmobiliario</p><a class="advisor-cta" href="https://wa.me/525521775122?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20Andaluc%C3%ADa%20Residencial" target="_blank" rel="noopener">Solicitar información</a></article>
     </div>
   </div>
 </section>
@@ -120,7 +235,7 @@
   <div class="container">
     <div class="eyebrow">Ven y conoce Andalucía Residencial</div>
     <h2>Conoce tu próxima casa en Andalucía Residencial</h2>
-    <p>Recibe atención personalizada para conocer prototipos, disponibilidad y opciones de crédito, visita personalizada.</p>
+    <p>Recibe atención personalizada para conocer prototipos, disponibilidad y opciones de crédito. Agenda una visita personalizada.</p>
     <a class="btn" href="https://wa.me/525521775122?text=Hola%2C%20quiero%20agendar%20una%20cita%20para%20conocer%20Andaluc%C3%ADa%20Residencial" target="_blank" rel="noopener">Agendar cita al 55 2177 5122</a>
   </div>
 </section>
@@ -130,6 +245,6 @@
 </footer>
 
 <a class="whatsapp-float" href="https://wa.me/525521775122?text=Hola%2C%20quiero%20agendar%20una%20cita%20para%20conocer%20Andaluc%C3%ADa%20Residencial" target="_blank" rel="noopener">WhatsApp · Agendar cita</a>
-<script src="js/main.js" defer></script>
+<script src="./js/main.js" defer></script>
 </body>
 </html>
