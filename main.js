@@ -1,1 +1,1 @@
-// Archivo JavaScript del proyecto. La landing actual no requiere scripts adicionales.
+// La landing no requiere JavaScript externo.

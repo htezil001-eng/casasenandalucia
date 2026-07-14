@@ -1,5 +1,7 @@
-ANDALUCÍA RESIDENCIAL — PAQUETE PARA CLOUDFLARE PAGES
+LANDING ANDALUCÍA RESIDENCIAL - PAQUETE COMPLETO
 
-Sube este ZIP directamente en la opción de carga de archivos de Cloudflare Pages.
-El archivo index.html está en la raíz y todas las rutas fueron verificadas.
-Contenido: index.html, css/styles.css, js/main.js y assets/images.
+Sube este ZIP directamente a Cloudflare Pages.
+El archivo index.html es autocontenido: incluye estilos e imágenes, por lo que no depende de rutas externas.
+Las carpetas css, js y assets/images se incluyen como respaldo del proyecto completo.
+
+Número de WhatsApp configurado: 81 4385 6903.
