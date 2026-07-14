@@ -1,0 +1,9 @@
+ANDALUCÍA RESIDENCIAL - PROYECTO COMPLETO
+
+Contenido:
+- index.html: página principal
+- css/styles.css: todos los estilos de la landing
+- js/main.js: archivo JavaScript del proyecto
+- assets/images/: todas las imágenes utilizadas
+
+Para publicar, sube el contenido completo conservando esta estructura.
