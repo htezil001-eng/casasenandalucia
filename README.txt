@@ -1,0 +1,1 @@
+Clon reconstruido de casasenandalucia.mx. Suba el contenido de esta carpeta a GitHub o Cloudflare Pages.
