@@ -2,5 +2,6 @@
 # and branch pushes can create public preview URLs.
 *.mp4
 *.png
+*.m4a
 .work/
 __pycache__/
