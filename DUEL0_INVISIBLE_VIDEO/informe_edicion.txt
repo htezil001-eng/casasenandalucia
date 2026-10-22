@@ -3,9 +3,8 @@ INFORME DE EDICIÓN · EL DUELO INVISIBLE
 Concepto: «El duelo que nadie ve». Cine editorial, minimalista y contemplativo.
 
 1. ENTREGABLES
-- duelo_invisible_reel_sin_musica.mp4  Render visual terminado (sin pista de audio).
-- duelo_invisible_reel_final.mp4       PENDIENTE: requiere el MP3 de «A Kind Of Hope»
-                                       (ver creditos_musica.txt). No se ha simulado.
+- duelo_invisible_reel_final.mp4       VÍDEO FINAL con música («A Kind Of Hope»).
+- duelo_invisible_reel_sin_musica.mp4  Mismo vídeo sin pista de audio (máster visual).
 - vista_previa.jpg                     Hoja de contacto de 18 fotogramas.
 - creditos_musica.txt                  Atribución, enlace, licencia y estado.
 - fuentes/Foto_1..7_TikTok_Reels.jpg   Las 7 imágenes originales, sin modificar,
@@ -13,6 +12,7 @@ Concepto: «El duelo que nadie ve». Cine editorial, minimalista y contemplativo
 - scripts/render_video.py              Montaje (Python + FFmpeg). Reproducible.
 - scripts/musicalizar.py               Musicalización y normalización (FFmpeg).
 - scripts/timeline.json                Tiempos exactos de cada escena.
+- scripts/musica_aplicada.json         Fragmento usado y sonoridad medida.
 
 2. MATERIAL DE ORIGEN
 Las imágenes no venían con nombre Foto_N_TikTok_Reels.jpg; se identificaron por
@@ -32,7 +32,8 @@ persona ni elemento gráfico; solo se aplican escala ≤ 1.032 y desplazamiento.
 Contenedor MP4 · H.264 High@4.2 · 1080x1920 (9:16) · 30/1 fps constantes
 (r_frame_rate = avg_frame_rate = 30/1) · yuv420p · BT.709 · CRF 16 preset slow
 (≈4,6 Mb/s) · faststart · 1262 fotogramas · 42,067 s · 24,4 MB.
-Audio: ninguno en esta versión (la versión final añade AAC 48 kHz 192 kbps).
+Versión final: mismo flujo de vídeo (copiado bit a bit, verificado con cmp) más
+AAC-LC 48 kHz estéreo 192 kbps · 42,067 s · 25,4 MB (24,3 MiB).
 
 4. SECUENCIA DE EDICIÓN
 Duración nominal 43,4 s − 1,32 s de solapamientos = 42,067 s.
@@ -89,9 +90,27 @@ Decisiones:
 [OK] musicalizar.py probado con una señal de prueba sintética (no entregada):
      -15,9 LUFS integrados, pico -6,1 dBTP, AAC 48 kHz 192 kbps estéreo, misma
      duración que el vídeo, decodificación correcta.
-[PENDIENTE] Música real: no descargable desde este entorno (host bloqueado).
+[OK] Versión final: decodificación completa sin errores; vídeo idéntico al
+     máster; audio presente durante toda la duración.
+[OK] Sonoridad: -15,8 LUFS integrados; true peak -1,9 dBTP (objetivo ≤ -1,5).
+[OK] Entrada limpia: el piano es audible a los 0,2 s. Salida limpia: -53 dB en
+     los últimos 20 ms, sin clic ni corte brusco.
 
-7. PLAN MUSICAL (aplicado por musicalizar.py)
+7. MÚSICA APLICADA
+Tema: «A Kind Of Hope» – Scott Buckley (CC BY 4.0). Fragmento 2:58,65 → 3:40,72.
+Elección: se analizó la envolvente completa del tema (5:42). La selección
+automática prefería una entrada hacia 3:04, pero ahí no hay ningún ataque claro
+hasta 3:07. Se adelantó a 2:58,65, donde un ataque de piano marcado cae a los
+0,15 s del vídeo («primera nota casi desde el inicio»). Con esa entrada:
+- El tramo inicial es contenido (melancolía) y el nivel crece hacia el final.
+- El corte a la imagen 6 (29,28 s → 3:27,9 del tema) cae en un pasaje más bajo,
+  reforzado por una bajada de -3,5 dB. A los 3,6 s llega un acento fuerte
+  (3:31,5) y el tema se abre en 3:35: el piano «se recupera» dentro del clímax.
+- El cierre (3:40,7) coincide con la apertura del tema, antes de su tramo más
+  intenso: alivio contenido, no euforia.
+No se buscó que cada transición coincidiera con un golpe de compás.
+
+8. PLAN MUSICAL (cómo lo aplica musicalizar.py)
 - Selección automática del fragmento: se compara la envolvente del tema con una
   curva objetivo que empieza contenida, crece, baja un poco antes del clímax y se
   abre al final; exige que el piano suene casi desde el primer segundo y descarta
@@ -101,9 +120,9 @@ Decisiones:
   el fundido final de imagen.
 - Sin cambios de tempo ni de tono. Sin voz en off ni efectos de sonido.
 - Normalización EBU R128 en dos pasadas: -16 LUFS, -1,5 dBTP, más limitador de
-  seguridad.
+  seguridad a -2 dBFS (margen frente al sobrepico que añade el AAC).
 
-8. NOTA SOBRE EL REPOSITORIO
+9. NOTA SOBRE EL REPOSITORIO
 Esta carpeta vive dentro del repositorio del sitio web. Si el sitio se despliega
-en Cloudflare Pages, cada archivo debe pesar menos de 25 MiB; el MP4 actual pesa
-23,3 MiB y el final con audio rondará los 24,3 MiB.
+en Cloudflare Pages, cada archivo debe pesar menos de 25 MiB; el MP4 sin música
+pesa 23,3 MiB y el final con audio 24,3 MiB.

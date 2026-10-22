@@ -111,7 +111,7 @@ def main():
     m = loudnorm_measure(a.audio, start, dur, shape)
     norm = (f"{shape},loudnorm=I=-16:TP=-1.5:LRA=11:measured_I={m['input_i']}:measured_TP={m['input_tp']}:"
             f"measured_LRA={m['input_lra']}:measured_thresh={m['input_thresh']}:offset={m['target_offset']}:"
-            f"linear=true,aresample=48000,alimiter=limit=0.83:level=false")  # 0.83 ≈ -1.6 dBFS
+            f"linear=true,aresample=48000,alimiter=limit=0.79:level=false")  # 0.79 ≈ -2 dBFS: margen ante el AAC
 
     subprocess.run(["ffmpeg", "-y", "-hide_banner", "-loglevel", "error",
                     "-i", a.video, "-ss", f"{start:.3f}", "-t", f"{dur:.3f}", "-i", a.audio,

@@ -1,34 +1,26 @@
 CRÉDITOS DE MÚSICA · EL DUELO INVISIBLE
 =======================================
 
-ESTADO: MÚSICA PENDIENTE
-El vídeo entregado (duelo_invisible_reel_sin_musica.mp4) NO lleva música.
-No se ha producido ni se simula ninguna versión musicalizada.
-
-Motivo: el entorno de producción no tiene acceso de red a scottbuckley.com.au
-(la política de red del entorno bloquea el host: «CONNECT 403»). Tampoco se pudo
-acceder a ninguna otra fuente que permita verificar la licencia, ni había copia
-local del tema en el equipo. No se inventó ninguna URL de descarga.
-
-Composición seleccionada: «A Kind Of Hope» – Scott Buckley
+Composición: «A Kind Of Hope» – Scott Buckley (2022)
 Fuente oficial: https://www.scottbuckley.com.au/library/a-kind-of-hope/
-Licencia: Creative Commons Attribución 4.0 Internacional (CC BY 4.0)
+Licencia: Creative Commons Atribución 4.0 Internacional (CC BY 4.0)
           https://creativecommons.org/licenses/by/4.0/
 
 Atribución obligatoria (copiar tal cual en la descripción de la publicación):
 
   'A Kind Of Hope' by Scott Buckley - released under CC-BY 4.0. www.scottbuckley.com.au
 
-Alternativa (no utilizada): «Reverie» – Scott Buckley
-  https://www.scottbuckley.com.au/library/reverie/ (CC BY 4.0)
-  No se pudo escuchar ninguna de las dos piezas, así que se mantiene la
-  selección principal indicada en el brief. No se mezclan ambas.
+Archivo usado: MP3 de 320 kbps, 44,1 kHz, 5:42, aportado por la autora del
+proyecto desde la fuente oficial (etiquetas: artist/composer «Scott Buckley»,
+title «A Kind Of Hope», album «www.scottbuckley.com.au/library», 2022).
+El entorno de producción no tenía acceso de red a scottbuckley.com.au.
 
-CÓMO TERMINAR LA VERSIÓN MUSICALIZADA
-1. Descarga el MP3 desde la página oficial de arriba.
-2. Ejecuta, desde la carpeta DUEL0_INVISIBLE_VIDEO:
-     python3 scripts/musicalizar.py RUTA/A_Kind_Of_Hope.mp3
-   (opcional: --inicio SEGUNDOS para fijar a mano el punto de entrada)
-3. Resultado: duelo_invisible_reel_final.mp4 (vídeo copiado sin recomprimir,
-   AAC 48 kHz 192 kbps, -16 LUFS, pico ≤ -1.5 dBTP, faststart) y
-   scripts/musica_aplicada.json con el fragmento usado y la sonoridad medida.
+Fragmento utilizado: de 2:58,65 a 3:40,72 (42,07 s), sin cambios de tempo ni de tono.
+
+Alternativa no utilizada: «Reverie» – Scott Buckley
+  https://www.scottbuckley.com.au/library/reverie/ (CC BY 4.0)
+  No se descargó; se mantiene la selección principal del brief. No se mezclan temas.
+
+Cambios realizados sobre la obra (exigido por CC BY 4.0, indicar si hubo cambios):
+recorte del fragmento, fundidos de entrada y salida, una bajada de volumen de
+-3,5 dB antes del clímax y normalización de sonoridad.
