@@ -1,0 +1,109 @@
+INFORME DE EDICIÓN · EL DUELO INVISIBLE
+======================================
+Concepto: «El duelo que nadie ve». Cine editorial, minimalista y contemplativo.
+
+1. ENTREGABLES
+- duelo_invisible_reel_sin_musica.mp4  Render visual terminado (sin pista de audio).
+- duelo_invisible_reel_final.mp4       PENDIENTE: requiere el MP3 de «A Kind Of Hope»
+                                       (ver creditos_musica.txt). No se ha simulado.
+- vista_previa.jpg                     Hoja de contacto de 18 fotogramas.
+- creditos_musica.txt                  Atribución, enlace, licencia y estado.
+- fuentes/Foto_1..7_TikTok_Reels.jpg   Las 7 imágenes originales, sin modificar,
+                                       renombradas en orden narrativo.
+- scripts/render_video.py              Montaje (Python + FFmpeg). Reproducible.
+- scripts/musicalizar.py               Musicalización y normalización (FFmpeg).
+- scripts/timeline.json                Tiempos exactos de cada escena.
+
+2. MATERIAL DE ORIGEN
+Las imágenes no venían con nombre Foto_N_TikTok_Reels.jpg; se identificaron por
+su texto y se ordenaron según el brief:
+  1 «¿Por qué nadie habla de los duelos por pérdida de la salud?»
+  2 «…aceptar que tienes una enfermedad crónica, aunque desde fuera parezca…»
+  3 «…aceptar que necesitas una medicación o tratamiento para poder vivir.»
+  4 «…convivir con dolor crónico ni del enorme reto que supone.»
+  5 «Perder la salud es más de lo que la gente imagina. …»
+  6 «Sigo sin entender por qué no se normaliza que perder la salud DUELE…»
+  7 «No estás exagerando si necesitas procesar un diagnóstico o dolor. …»
+Comprobación previa: las 7 son 1080x1920 y no contienen controles de Instagram,
+numeración de página ni icono de bocina. No se ha modificado ningún píxel de texto,
+persona ni elemento gráfico; solo se aplican escala ≤ 1.032 y desplazamiento.
+
+3. FORMATO FINAL (verificado con ffprobe)
+Contenedor MP4 · H.264 High@4.2 · 1080x1920 (9:16) · 30/1 fps constantes
+(r_frame_rate = avg_frame_rate = 30/1) · yuv420p · BT.709 · CRF 16 preset slow
+(≈4,6 Mb/s) · faststart · 1262 fotogramas · 42,067 s · 24,4 MB.
+Audio: ninguno en esta versión (la versión final añade AAC 48 kHz 192 kbps).
+
+4. SECUENCIA DE EDICIÓN
+Duración nominal 43,4 s − 1,32 s de solapamientos = 42,067 s.
+
+ #  Entra    Sale     Dur.  Entrada               Movimiento (escala · foco)
+ 1   0,00    5,00    5,0   — (primer fotograma   1.000→1.030, avance hacia la pregunta
+                            con contenido)
+ 2   4,75   10,75    6,0   disolvencia 0,25 s    1.024→1.028, deriva lateral der.→izq.
+ 3  10,53   16,33    5,8   disolvencia 0,22 s    1.006→1.030, aproximación íntima
+ 4  16,03   21,53    5,5   disolvencia 0,30 s    1.028→1.014, alejamiento contenido
+                           (la más lenta: pausa)  (desaceleración cúbica)
+ 5  21,28   29,28    8,0   disolvencia 0,25 s    1.010→1.018, movimiento mínimo
+ 6  29,28   35,08    5,8   CORTE SECO            1.000→1.032, aproximación hacia «DUELE»
+ 7  34,78   42,07    7,3   disolvencia 0,30 s    1.026→1.006, alejamiento cada vez
+                                                 más lento (desaceleración cuártica)
+ Cierre: disolvencia de 0,9 s al crema de la propia imagen 7 (no a negro).
+
+Decisiones:
+- El corte seco 5→6 marca el clímax: tras la escena más larga y quieta, la frase
+  «DUELE» entra sin transición y la cámara se acerca. Es el único corte.
+- El sentido del movimiento alterna entre escenas (acercar / lateral / acercar /
+  alejar / casi quieto / acercar / alejar) para evitar monotonía.
+- Tiempo de lectura: la imagen 5 (≈35 palabras) tiene 8 s; la 7 (≈25 palabras)
+  más de 7 s visibles antes del fundido.
+
+5. EFECTOS UTILIZADOS
+- Ken Burns muy controlado: interpolación afín subpíxel (bicúbica) por fotograma,
+  con curvas de aceleración coseno / cúbica / cuártica; nunca velocidad constante.
+- Variación del punto focal (el encuadre se desplaza hacia el texto principal).
+- Luz ambiental: banda diagonal de ±1,2 % de ganancia que avanza con el tiempo
+  global (no por escena), así no hay saltos de exposición en los cortes.
+- Disolvencias con curva smoothstep de 0,22–0,30 s.
+- No se usó micro-parallax: exigiría separar o reconstruir capas (figura, cerebro,
+  texto), algo que el brief prohíbe. Tampoco grano, viñeta, destellos, glitch,
+  flashes, stickers ni textos añadidos.
+
+6. VALIDACIONES REALIZADAS
+[OK] ffprobe: h264 High, 1080x1920, yuv420p, 30/1 fps, 1262 fotogramas, 42,067 s.
+[OK] Decodificación completa sin errores (ffmpeg -f null).
+[OK] blackdetect (umbral 10 %, 0,03 s): 0 tramos negros.
+[OK] Exposición: luma media entre 196 y 224; mediana de variación entre
+     fotogramas 0,03; las mayores variaciones (≤1,33/255) están solo dentro del
+     fundido final intencionado. El corte 5→6 no produce salto apreciable.
+[OK] Recortes: para cada escena se midió la caja del texto y la firma en el
+     original y se comprobó, en 41 puntos del movimiento, que permanecen dentro
+     del encuadre. Margen mínimo del texto: 71 px (imagen 3). El margen de 12 px
+     de la imagen 2 corresponde a un pequeño objeto del suelo en el borde derecho
+     (x 1026–1039), no a texto, y también queda visible.
+[OK] Firma @endoyemociones visible en todas las escenas.
+[OK] Las 7 imágenes, en el orden correcto (revisión visual de vista_previa.jpg:
+     inicio, mitad de cada escena, centro de cada disolvencia, ambos lados del
+     corte y final).
+[OK] Sin deformaciones: escala uniforme en ambos ejes, sin cambio de proporción.
+[OK] musicalizar.py probado con una señal de prueba sintética (no entregada):
+     -15,9 LUFS integrados, pico -6,1 dBTP, AAC 48 kHz 192 kbps estéreo, misma
+     duración que el vídeo, decodificación correcta.
+[PENDIENTE] Música real: no descargable desde este entorno (host bloqueado).
+
+7. PLAN MUSICAL (aplicado por musicalizar.py)
+- Selección automática del fragmento: se compara la envolvente del tema con una
+  curva objetivo que empieza contenida, crece, baja un poco antes del clímax y se
+  abre al final; exige que el piano suene casi desde el primer segundo y descarta
+  fragmentos con silencios. No toma por defecto el inicio del tema.
+- Fade-in 0,8 s; bajada suave de -3,5 dB en el segundo previo al corte a la
+  imagen 6 y recuperación en 1,4 s; fade-out de 3,2 s (curva qsin) que acompaña
+  el fundido final de imagen.
+- Sin cambios de tempo ni de tono. Sin voz en off ni efectos de sonido.
+- Normalización EBU R128 en dos pasadas: -16 LUFS, -1,5 dBTP, más limitador de
+  seguridad.
+
+8. NOTA SOBRE EL REPOSITORIO
+Esta carpeta vive dentro del repositorio del sitio web. Si el sitio se despliega
+en Cloudflare Pages, cada archivo debe pesar menos de 25 MiB; el MP4 actual pesa
+23,3 MiB y el final con audio rondará los 24,3 MiB.

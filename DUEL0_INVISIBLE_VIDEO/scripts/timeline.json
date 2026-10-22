@@ -1,0 +1,49 @@
+{
+  "fps": 30,
+  "duration": 42.06666666666667,
+  "end_fade": 0.9,
+  "scenes": [
+    {
+      "index": 1,
+      "start": 0.0,
+      "end": 5.0,
+      "transition_in": null
+    },
+    {
+      "index": 2,
+      "start": 4.75,
+      "end": 10.75,
+      "transition_in": 0.25
+    },
+    {
+      "index": 3,
+      "start": 10.53,
+      "end": 16.33,
+      "transition_in": 0.22
+    },
+    {
+      "index": 4,
+      "start": 16.03,
+      "end": 21.53,
+      "transition_in": 0.3
+    },
+    {
+      "index": 5,
+      "start": 21.28,
+      "end": 29.28,
+      "transition_in": 0.25
+    },
+    {
+      "index": 6,
+      "start": 29.28,
+      "end": 35.08,
+      "transition_in": 0.0
+    },
+    {
+      "index": 7,
+      "start": 34.78,
+      "end": 42.08,
+      "transition_in": 0.3
+    }
+  ]
+}
