@@ -1,0 +1,6 @@
+# Media with the client's face stays out of git: this repo deploys to Cloudflare Pages
+# and branch pushes can create public preview URLs.
+*.mp4
+*.png
+.work/
+__pycache__/
