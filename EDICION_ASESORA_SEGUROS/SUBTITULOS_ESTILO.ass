@@ -1,0 +1,27 @@
+[Script Info]
+Title: Subregistro salarial - captions
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 0
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Caption,Inter,62,&H00EBF2F5,&H00EBF2F5,&H00191919,&H00191919,-1,0,0,0,100,100,0,0,3,14,0,2,120,120,430,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.15,Caption,,0,0,0,,{\fad(120,0)}Puede que tu {\c&H005BF3D9&}jefe{\c&H00EBF2F5&}
+Dialogue: 0,0:00:01.15,0:00:01.87,Caption,,0,0,0,,{\fad(120,0)}te pague {\c&H005BF3D9&}bien,{\c&H00EBF2F5&}
+Dialogue: 0,0:00:01.87,0:00:03.27,Caption,,0,0,0,,{\fad(120,0)}{\c&H005BF3D9&}pero{\c&H00EBF2F5&} que le esté
+Dialogue: 0,0:00:03.27,0:00:04.33,Caption,,0,0,0,,{\fad(120,0)}diciendo al {\c&H005BF3D9&}IMSS{\c&H00EBF2F5&}
+Dialogue: 0,0:00:19.52,0:00:20.77,Caption,,0,0,0,,{\fad(120,0)}tu recibo de {\c&H005BF3D9&}nómina{\c&H00EBF2F5&}
+Dialogue: 0,0:00:20.77,0:00:22.44,Caption,,0,0,0,,{\fad(120,0)}con tu {\c&H005BF3D9&}constancia{\c&H00EBF2F5&} del IMSS,
+Dialogue: 0,0:00:22.44,0:00:23.16,Caption,,0,0,0,,{\fad(120,0)}es muy {\c&H005BF3D9&}probable{\c&H00EBF2F5&}
+Dialogue: 0,0:00:23.16,0:00:24.54,Caption,,0,0,0,,{\fad(120,0)}que esto te esté {\c&H005BF3D9&}pasando{\c&H00EBF2F5&}
+Dialogue: 0,0:00:24.54,0:00:25.29,Caption,,0,0,0,,{\fad(120,0)}también a {\c&H005BF3D9&}ti{\c&H00EBF2F5&}
+Dialogue: 0,0:00:25.29,0:00:26.30,Caption,,0,0,0,,{\fad(120,0)}sin que lo {\c&H005BF3D9&}sepas.{\c&H00EBF2F5&}
+Dialogue: 0,0:00:26.30,0:00:27.27,Caption,,0,0,0,,{\fad(120,0)}Saca tu {\c&H005BF3D9&}constancia{\c&H00EBF2F5&}
+Dialogue: 0,0:00:27.27,0:00:28.97,Caption,,0,0,0,,{\fad(120,0)}de {\c&H005BF3D9&}semanas{\c&H00EBF2F5&} {\c&H005BF3D9&}cotizadas{\c&H00EBF2F5&}
+Dialogue: 0,0:00:28.97,0:00:30.13,Caption,,0,0,0,,{\fad(120,0)}en la {\c&H005BF3D9&}app{\c&H00EBF2F5&} del IMSS
