@@ -45,7 +45,7 @@ export default function RedeemPanel({ onDone }: { onDone?: () => void }) {
     if (!customer) return;
     setBusy(true);
     try {
-      const res = await rpc<{ ok: boolean; reward?: string; error?: string }>("confirm_redeem", {
+      const res = await rpc<{ ok: boolean; reward?: string; error?: string; blocked?: boolean }>("confirm_redeem", {
         p_customer: customer.id,
         p_code: code,
       });
@@ -56,6 +56,7 @@ export default function RedeemPanel({ onDone }: { onDone?: () => void }) {
       } else {
         setNotice({ kind: "error", text: res.error ?? "Código inválido" });
         setCode("");
+        if (res.blocked) setStarted(null);
       }
     } catch (e) {
       setNotice({ kind: "error", text: (e as Error).message });

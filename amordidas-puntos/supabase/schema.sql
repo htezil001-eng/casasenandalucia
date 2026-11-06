@@ -8,6 +8,7 @@
 --  * Alertas con nombres en lugar de IDs.
 --  * Nuevas RPC: list_rewards, manager_orders, cancel_order.
 --  * list_customers también devuelve notes (para poder editarlas).
+--  * El canje se cancela tras 3 códigos incorrectos (private.rules).
 -- Si ya corriste la versión original, usa actualizar_desde_original.sql.
 -- Modelo: el NEGOCIO registra y controla todo; el CLIENTE solo consulta
 -- con un link personal (token secreto), sin usuario ni contraseña.
@@ -44,6 +45,7 @@ create table private.rules (
   max_pedidos_dia           int     not null default 3,
   max_puntos_dia            int     not null default 1500,
   intentos_codigo_entrega   int     not null default 3,
+  intentos_codigo_canje     int     not null default 3,
   vigencia_codigo_canje_seg int     not null default 30,
   duracion_canje_min        int     not null default 5,
   ajuste_maximo             int     not null default 300,
@@ -129,7 +131,8 @@ create table public.redeem_sessions (
   reward_id   text not null references public.rewards(id),
   nonce       text not null default encode(gen_random_bytes(8),'hex'),
   started_by  uuid not null references public.staff(id),
-  expires_at  timestamptz not null
+  expires_at  timestamptz not null,
+  attempts    int not null default 0
 );
 
 create table public.alerts (
@@ -471,7 +474,7 @@ begin
   values (p_customer, p_reward, me, now() + make_interval(mins => r.duracion_canje_min))
   on conflict (customer_id) do update
     set reward_id = excluded.reward_id, nonce = encode(gen_random_bytes(8),'hex'),
-        started_by = excluded.started_by, expires_at = excluded.expires_at;
+        started_by = excluded.started_by, expires_at = excluded.expires_at, attempts = 0;
 end $$;
 
 -- Confirmar canje con el código que el cliente muestra en su link
@@ -485,8 +488,17 @@ begin
   if not found then raise exception 'No hay canje activo para este cliente'; end if;
   -- acepta la ventana actual y la anterior (por si cambió justo al dictarlo)
   if upper(trim(p_code)) not in (private.redeem_code(p_customer, w), private.redeem_code(p_customer, w - 1)) then
+    update public.redeem_sessions set attempts = attempts + 1 where customer_id = p_customer returning * into s;
+    if s.attempts >= (select intentos_codigo_canje from private.rules) then
+      delete from public.redeem_sessions where customer_id = p_customer;
+      perform private.alert('bad', format('Canje cancelado para %s: %s códigos incorrectos.',
+        (select name from public.customers where id = p_customer), s.attempts));
+      return jsonb_build_object('ok', false, 'blocked', true,
+        'error', format('Canje cancelado: %s códigos incorrectos. Inícialo de nuevo si el cliente está presente.', s.attempts));
+    end if;
     perform private.alert('warn', format('Código de canje inválido para %s.', (select name from public.customers where id = p_customer)));
-    return jsonb_build_object('ok', false, 'error', 'Código inválido o caducado');
+    return jsonb_build_object('ok', false, 'attempts', s.attempts,
+      'error', format('Código inválido o caducado · intento %s/%s', s.attempts, (select intentos_codigo_canje from private.rules)));
   end if;
   select * into rw from public.rewards where id = s.reward_id;
   if private.balance(p_customer) < rw.cost then raise exception 'Puntos insuficientes'; end if;
