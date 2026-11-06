@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@theme {
+  --color-rosa: #E0509A;
+  --color-rosa-claro: #FBE3EF;
+  --color-azul: #2F5BB7;
+  --color-verde: #5CB82E;
+  --color-amarillo: #F5E14A;
+  --color-morado: #3B2366;
+  --color-fresa: #D6304A;
+  --color-fondo: #FFF8FB;
+  --color-wa: #25D366;
+  --font-sans: "Fredoka", ui-rounded, system-ui, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, monospace;
+}
+
+html, body { background: var(--color-fondo); color: var(--color-morado); }
+body { font-family: var(--font-sans); -webkit-tap-highlight-color: transparent; }
+
+input, select, textarea { font: inherit; color: inherit; }
+
+@utility card { @apply rounded-[20px] border-[3px] border-morado/15 bg-white p-4 shadow-[0_4px_0_rgba(59,35,102,0.08)]; }
+@utility field { @apply w-full rounded-2xl border-[3px] border-morado/20 bg-white px-4 py-3 text-lg outline-none focus:border-rosa; }
+@utility label { @apply mb-1 block text-sm font-medium text-morado/80; }
+@utility btn { @apply inline-flex items-center justify-center gap-2 rounded-2xl border-[3px] px-4 py-3 text-base font-semibold transition active:translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50; }
+@utility btn-rosa { @apply btn border-morado/20 bg-rosa text-white shadow-[0_4px_0_#b23a78] active:shadow-none; }
+@utility btn-azul { @apply btn border-morado/20 bg-azul text-white shadow-[0_4px_0_#20448d] active:shadow-none; }
+@utility btn-blanco { @apply btn border-morado/20 bg-white text-morado shadow-[0_4px_0_rgba(59,35,102,0.15)] active:shadow-none; }
+@utility btn-wa { @apply btn border-morado/10 bg-wa text-white shadow-[0_4px_0_#1a9e4c] active:shadow-none; }
+@utility btn-sm { @apply px-3 py-2 text-sm rounded-xl border-2; }
+@utility code { font-family: var(--font-mono); letter-spacing: 0.15em; }
