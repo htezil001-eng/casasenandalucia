@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amordidas Puntos – Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fff8fb; --card:#fff; --ink:#3b2366; --muted:#7a6a92; --line:#eadff3;
+    --brand:#e0509a; --brand-soft:#fde3f0; --blue:#2f5bb7; --green:#5cb82e; --green-soft:#e6f6dc; --yellow:#f5e14a;
+    --ok:#3f9a1f; --ok-soft:#e6f6dc; --bad:#d6304a; --bad-soft:#fde4e8; --warn:#a07400; --warn-soft:#fff6cf;
+    --wa:#25d366;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Fredoka",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.45}
+  header{padding:14px 16px 6px;max-width:720px;margin:0 auto;text-align:center}
+  header img{width:190px;max-width:60%;height:auto;display:block;margin:0 auto}
+  header p{margin:6px 0 0;color:var(--muted);font-size:13px}
+  .demo{display:inline-block;background:var(--yellow);color:var(--ink);font-weight:600;font-size:11px;padding:2px 8px;border-radius:99px;margin-top:6px}
+  nav{position:sticky;top:0;z-index:5;background:var(--bg);display:flex;gap:6px;padding:10px 16px;max-width:720px;margin:0 auto;border-bottom:2px solid var(--line)}
+  nav button{flex:1;border:2px solid var(--line);background:var(--card);color:var(--ink);padding:9px 6px;border-radius:14px;font:inherit;font-weight:600;font-size:14px;cursor:pointer}
+  nav button.on{background:var(--brand);border-color:var(--brand);color:#fff}
+  .wa{display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;background:var(--wa);color:#fff;font-weight:600;padding:11px 14px;border-radius:12px;margin-top:10px}
+  .wa svg{width:20px;height:20px;fill:#fff}
+  .hero{background:linear-gradient(135deg,var(--green) 0%,#86d14f 100%);color:#fff;border:0}
+  .hero .muted{color:#f1ffe6}
+  .hero .btn.ghost{color:#fff;border-color:#fff}
+  main{max-width:720px;margin:0 auto;padding:14px 16px 60px}
+  .card{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:14px;margin-bottom:12px}
+  .card h2{font-size:15px;margin:0 0 10px}
+  label{display:block;font-size:12px;color:var(--muted);margin:8px 0 4px}
+  input,select{width:100%;padding:10px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit}
+  .btn{display:inline-block;margin-top:10px;padding:10px 14px;border-radius:9px;border:0;background:var(--brand);color:#fff;font:inherit;font-weight:700;cursor:pointer}
+  .btn.ghost{background:transparent;color:var(--brand);border:1px solid var(--brand)}
+  .row{display:flex;gap:8px}.row>*{flex:1}
+  .big{font-size:38px;font-weight:700;letter-spacing:-.02em}
+  .code{font-family:"DM Mono",monospace;font-size:30px;letter-spacing:.18em;background:var(--brand-soft);color:var(--brand);border-radius:10px;padding:10px;text-align:center}
+  .muted{color:var(--muted);font-size:13px}
+  .msg{margin-top:10px;padding:9px 11px;border-radius:9px;font-size:13px}
+  .msg.ok{background:var(--ok-soft);color:var(--ok)}.msg.bad{background:var(--bad-soft);color:var(--bad)}.msg.warn{background:var(--warn-soft);color:var(--warn)}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{text-align:left;padding:7px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--muted);font-weight:500;font-size:12px}
+  .pill{display:inline-block;font-size:11px;padding:2px 7px;border-radius:99px;background:var(--brand-soft);color:var(--brand)}
+  .bar{height:5px;background:var(--line);border-radius:9px;overflow:hidden;margin-top:8px}.bar i{display:block;height:100%;background:var(--brand);transition:width 1s linear}
+  .reward{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+  .reward:last-child{border:0}
+  .hide{display:none}
+  .shield{font-size:12px;color:var(--muted);border-left:3px solid var(--brand);padding:2px 0 2px 8px;margin-top:10px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Puntos Delivery</h1>
+  <p>Prototipo: el "servidor" está simulado dentro de esta página para que puedas probar el flujo y las reglas antifraude.</p>
+</header>
+<nav>
+  <button data-v="cliente" class="on">Cliente</button>
+  <button data-v="repartidor">Repartidor</button>
+  <button data-v="gerente">Gerente</button>
+</nav>
+<main>
+
+<!-- CLIENTE -->
+<section id="v-cliente">
+  <div class="card" id="c-login">
+    <h2>Entrar con tu celular</h2>
+    <label>Número de celular (10 dígitos)</label>
+    <input id="c-phone" inputmode="numeric" maxlength="10" placeholder="5512345678">
+    <label>Nombre</label>
+    <input id="c-name" placeholder="Tu nombre">
+    <button class="btn" id="c-sendotp">Enviar código por SMS</button>
+    <div id="c-otpbox" class="hide">
+      <label>Código recibido</label>
+      <input id="c-otp" inputmode="numeric" maxlength="6">
+      <button class="btn" id="c-verify">Verificar</button>
+    </div>
+    <div id="c-loginmsg"></div>
+    <div class="shield">Una cuenta por número verificado: así nadie crea cuentas falsas para cobrar bonos.</div>
+  </div>
+
+  <div id="c-app" class="hide">
+    <div class="card">
+      <div class="muted">Hola, <b id="c-hello"></b></div>
+      <div class="big"><span id="c-points">0</span> pts</div>
+      <div class="muted">1 punto por cada $10 de pedido entregado · caducan a los 12 meses</div>
+      <button class="btn ghost" id="c-logout" style="margin-top:8px">Cambiar de cliente</button>
+    </div>
+    <div class="card" id="c-pending"></div>
+    <div class="card">
+      <h2>Canjear un premio</h2>
+      <div id="c-rewards"></div>
+      <div id="c-redeembox" class="hide">
+        <p class="muted">Muéstrale este código al repartidor. Cambia cada 30 segundos y sirve una sola vez.</p>
+        <div class="code" id="c-rcode">------</div>
+        <div class="bar"><i id="c-rbar"></i></div>
+        <button class="btn ghost" id="c-rcancel">Cancelar</button>
+      </div>
+      <div class="shield">Una captura de pantalla no sirve: el código caduca rápido y el servidor lo invalida al usarse.</div>
+    </div>
+    <div class="card">
+      <h2>Mis movimientos</h2>
+      <div id="c-ledger"></div>
+    </div>
+  </div>
+</section>
+
+<!-- REPARTIDOR -->
+<section id="v-repartidor" class="hide">
+  <div class="card">
+    <h2>Repartidor en turno</h2>
+    <select id="r-driver"></select>
+    <div class="shield">Cada repartidor tiene su propio usuario. Todo lo que hace queda registrado a su nombre.</div>
+  </div>
+  <div class="card">
+    <h2>Mis entregas pendientes</h2>
+    <div id="r-orders"></div>
+  </div>
+  <div class="card">
+    <h2>Canjear premio de un cliente</h2>
+    <label>Código que te muestra el cliente</label>
+    <input id="r-rcode" maxlength="6" style="text-transform:uppercase;font-family:'DM Mono',monospace">
+    <button class="btn" id="r-redeem">Validar y entregar premio</button>
+    <div id="r-rmsg"></div>
+  </div>
+</section>
+
+<!-- GERENTE -->
+<section id="v-gerente" class="hide">
+  <div class="card">
+    <h2>Registrar pedido (cocina / caja)</h2>
+    <label>Cliente</label>
+    <select id="g-cust"></select>
+    <div class="row">
+      <div><label>Total del pedido ($)</label><input id="g-amount" inputmode="decimal" placeholder="350"></div>
+      <div><label>Repartidor</label><select id="g-driver"></select></div>
+    </div>
+    <button class="btn" id="g-order">Crear pedido</button>
+    <div id="g-omsg"></div>
+    <div class="shield">El monto lo captura el restaurante, nunca la app del cliente. Los puntos se calculan en el servidor.</div>
+  </div>
+
+  <div class="card">
+    <h2>Alertas</h2>
+    <div id="g-alerts"></div>
+  </div>
+
+  <div class="card">
+    <h2>Ajuste manual de puntos</h2>
+    <label>Cliente</label>
+    <select id="g-acust"></select>
+    <div class="row">
+      <div><label>Puntos (+/−)</label><input id="g-apts" inputmode="numeric" placeholder="20"></div>
+      <div><label>PIN de gerente</label><input id="g-pin" type="password" inputmode="numeric" placeholder="1234"></div>
+    </div>
+    <label>Motivo (obligatorio)</label>
+    <input id="g-reason" placeholder="Pedido llegó frío, compensación">
+    <button class="btn" id="g-adjust">Aplicar ajuste</button>
+    <div id="g-amsg"></div>
+    <div class="shield">Requiere PIN, motivo y queda en el historial con quién, cuándo y por qué. Límite de ±100 pts por ajuste. (PIN de prueba: 1234)</div>
+  </div>
+
+  <div class="card">
+    <h2>Historial completo (no se puede borrar)</h2>
+    <div id="g-ledger"></div>
+  </div>
+
+  <div class="card">
+    <h2>Reglas activas</h2>
+    <div class="muted" id="g-rules"></div>
+    <button class="btn ghost" id="g-reset">Borrar datos de prueba</button>
+  </div>
+</section>
+</main>
+
+<script>
+/* ============================================================
+   "SERVIDOR" SIMULADO
+   En la versión real todo esto vive en un backend; el celular
+   del cliente y del repartidor solo envían solicitudes.
+   ============================================================ */
+const Server = (() => {
+  const RULES = {
+    pesosPorPunto: 10,
+    maxPedidosConPuntosPorDia: 3,
+    maxPuntosPorDia: 150,
+    intentosCodigoEntrega: 3,
+    vigenciaCodigoCanjeSeg: 30,
+    ajusteMaximo: 100,
+    pinGerente: "1234",
+    caducidadMeses: 12
+  };
+  const REWARDS = [
+    {id:"postre", name:"Postre gratis", cost:60},
+    {id:"envio", name:"Envío gratis", cost:100},
+    {id:"desc", name:"$100 de descuento", cost:200}
+  ];
+  const DRIVERS = [{id:"d1",name:"Luis (Rep. 01)"},{id:"d2",name:"Ana (Rep. 02)"}];
+  const SECRET = crypto.getRandomValues(new Uint8Array(16)).join("."); // en real: secreto en el servidor
+
+  let db = load() || {customers:{}, orders:{}, ledger:[], alerts:[], otps:{}, redeem:{}, seq:1};
+
+  function load(){ try{ return JSON.parse(localStorage.getItem("puntos-db")); }catch(e){ return null; } }
+  function save(){ try{ localStorage.setItem("puntos-db", JSON.stringify(db)); }catch(e){} }
+  const today = () => new Date().toISOString().slice(0,10);
+  const now = () => new Date().toISOString();
+  const rnd = (n, chars="0123456789") => Array.from(crypto.getRandomValues(new Uint8Array(n)), b => chars[b % chars.length]).join("");
+
+  async function hmac(text){
+    const key = await crypto.subtle.importKey("raw", new TextEncoder().encode(SECRET), {name:"HMAC",hash:"SHA-256"}, false, ["sign"]);
+    const sig = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(text));
+    return Array.from(new Uint8Array(sig)).map(b=>b.toString(16).padStart(2,"0")).join("");
+  }
+
+  // Historial append-only: el saldo SIEMPRE se calcula sumando movimientos.
+  function addLedger(entry){
+    const prev = db.ledger.length ? db.ledger[db.ledger.length-1].hash : "inicio";
+    entry = {id: db.seq++, at: now(), ...entry};
+    entry.hash = simpleHash(prev + JSON.stringify(entry));
+    db.ledger.push(Object.freeze(entry));
+  }
+  function simpleHash(s){ let h=0; for(const c of s){ h=(h*31 + c.charCodeAt(0))|0; } return (h>>>0).toString(16); }
+  function balance(phone){ return db.ledger.filter(e=>e.phone===phone).reduce((s,e)=>s+e.points,0); }
+  function alert(level, text){ db.alerts.unshift({at:now(), level, text}); }
+
+  return {
+    RULES, REWARDS, DRIVERS,
+    customers: () => Object.values(db.customers),
+    getCustomer: p => db.customers[p],
+    balance,
+    ledger: phone => phone ? db.ledger.filter(e=>e.phone===phone) : db.ledger,
+    alerts: () => db.alerts,
+    ordersFor: phone => Object.values(db.orders).filter(o=>o.phone===phone),
+    ordersForDriver: d => Object.values(db.orders).filter(o=>o.driver===d && o.status==="en camino"),
+
+    requestOtp(phone, name){
+      if(!/^\d{10}$/.test(phone)) return {ok:false, error:"El número debe tener 10 dígitos."};
+      if(!name.trim() && !db.customers[phone]) return {ok:false, error:"Escribe tu nombre."};
+      const code = rnd(6);
+      db.otps[phone] = {code, name:name.trim(), tries:0, exp: Date.now()+5*60e3};
+      save();
+      return {ok:true, demoCode: code}; // en real: se envía por SMS, nunca se devuelve
+    },
+    verifyOtp(phone, code){
+      const o = db.otps[phone];
+      if(!o || Date.now() > o.exp) return {ok:false, error:"El código caducó. Pide otro."};
+      if(++o.tries > 3){ delete db.otps[phone]; save(); return {ok:false, error:"Demasiados intentos. Pide otro código."}; }
+      if(o.code !== code){ save(); return {ok:false, error:"Código incorrecto."}; }
+      if(!db.customers[phone]) db.customers[phone] = {phone, name:o.name, since: now()};
+      delete db.otps[phone]; save();
+      return {ok:true, customer: db.customers[phone]};
+    },
+
+    async createOrder(phone, amount, driver){
+      amount = Math.round(Number(amount)*100)/100;
+      if(!db.customers[phone]) return {ok:false, error:"Cliente no registrado."};
+      if(!(amount>0 && amount<20000)) return {ok:false, error:"Monto inválido."};
+      const id = "P" + rnd(5);
+      const deliveryCode = rnd(4);
+      const sig = await hmac(`${id}|${phone}|${amount}`);
+      db.orders[id] = {id, phone, amount, driver, deliveryCode, sig, status:"en camino", tries:0, at: now()};
+      save();
+      return {ok:true, id};
+    },
+
+    async confirmDelivery(orderId, code, driver){
+      const o = db.orders[orderId];
+      if(!o || o.driver !== driver) return {ok:false, error:"Pedido no asignado a ti."};
+      if(o.status !== "en camino") return {ok:false, error:"Este pedido ya se cerró."};
+      // La firma evita que alguien altere el monto guardado
+      if(await hmac(`${o.id}|${o.phone}|${o.amount}`) !== o.sig){ alert("bad",`Pedido ${o.id}: firma inválida (posible manipulación).`); save(); return {ok:false,error:"Pedido alterado. Avisado al gerente."}; }
+      if(code !== o.deliveryCode){
+        o.tries++;
+        if(o.tries >= RULES.intentosCodigoEntrega){
+          o.status = "bloqueado";
+          alert("bad",`Pedido ${o.id}: ${RULES.intentosCodigoEntrega} códigos incorrectos de ${driverName(driver)}. Pedido bloqueado, sin puntos.`);
+        }
+        save();
+        return {ok:false, error:`Código incorrecto (${o.tries}/${RULES.intentosCodigoEntrega}).`};
+      }
+      o.status = "entregado"; o.deliveredAt = now();
+      let pts = Math.floor(o.amount / RULES.pesosPorPunto);
+      const todays = db.ledger.filter(e=>e.phone===o.phone && e.type==="compra" && e.at.slice(0,10)===today());
+      const ptsToday = todays.reduce((s,e)=>s+e.points,0);
+      let note = "";
+      if(todays.length >= RULES.maxPedidosConPuntosPorDia){ pts = 0; note="límite de pedidos diarios"; alert("warn",`${o.phone} superó ${RULES.maxPedidosConPuntosPorDia} pedidos con puntos hoy.`); }
+      else if(ptsToday + pts > RULES.maxPuntosPorDia){ pts = Math.max(0, RULES.maxPuntosPorDia - ptsToday); note="tope diario de puntos"; alert("warn",`${o.phone} llegó al tope de ${RULES.maxPuntosPorDia} pts diarios.`); }
+      // Patrón sospechoso: mismo repartidor entregando muchas veces al mismo cliente hoy
+      const sameDriver = Object.values(db.orders).filter(x=>x.phone===o.phone && x.driver===driver && x.status==="entregado" && x.deliveredAt.slice(0,10)===today()).length;
+      if(sameDriver >= 3) alert("warn",`${driverName(driver)} lleva ${sameDriver} entregas hoy al mismo cliente (${o.phone}).`);
+      addLedger({phone:o.phone, type:"compra", points:pts, ref:o.id, by:driverName(driver), detail:`Pedido $${o.amount}${note?" · "+note:""}`});
+      save();
+      return {ok:true, points:pts, note};
+    },
+
+    async startRedeem(phone, rewardId){
+      const r = REWARDS.find(x=>x.id===rewardId);
+      if(!r) return {ok:false, error:"Premio no existe."};
+      if(balance(phone) < r.cost) return {ok:false, error:"Puntos insuficientes."};
+      const nonce = rnd(8);
+      db.redeem[phone] = {rewardId, nonce, started: Date.now()};
+      save();
+      return {ok:true};
+    },
+    async currentRedeemCode(phone){
+      const s = db.redeem[phone]; if(!s) return null;
+      const win = Math.floor(Date.now() / (RULES.vigenciaCodigoCanjeSeg*1000));
+      const h = await hmac(`${phone}|${s.rewardId}|${s.nonce}|${win}`);
+      const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+      const code = Array.from(h.slice(0,12).match(/../g), x=>chars[parseInt(x,16)%chars.length]).join("").slice(0,6);
+      const left = RULES.vigenciaCodigoCanjeSeg - (Math.floor(Date.now()/1000) % RULES.vigenciaCodigoCanjeSeg);
+      return {code, left};
+    },
+    cancelRedeem(phone){ delete db.redeem[phone]; save(); },
+    async redeemByCode(code, driver){
+      code = code.trim().toUpperCase();
+      for(const phone of Object.keys(db.redeem)){
+        const cur = await this.currentRedeemCode(phone);
+        if(cur && cur.code === code){
+          const s = db.redeem[phone]; const r = REWARDS.find(x=>x.id===s.rewardId);
+          if(balance(phone) < r.cost){ delete db.redeem[phone]; save(); return {ok:false,error:"El cliente ya no tiene puntos suficientes."}; }
+          addLedger({phone, type:"canje", points:-r.cost, ref:r.id, by:driverName(driver), detail:r.name});
+          delete db.redeem[phone]; // un solo uso
+          save();
+          return {ok:true, reward:r.name, customer: db.customers[phone].name};
+        }
+      }
+      alert("warn",`${driverName(driver)} intentó un código de canje inválido o caducado (${code}).`); save();
+      return {ok:false, error:"Código inválido, caducado o ya usado."};
+    },
+
+    adjust(phone, points, pin, reason){
+      points = parseInt(points,10);
+      if(pin !== RULES.pinGerente){ alert("bad","Intento de ajuste manual con PIN incorrecto."); save(); return {ok:false,error:"PIN incorrecto. Intento registrado."}; }
+      if(!db.customers[phone]) return {ok:false,error:"Elige un cliente."};
+      if(!points || Math.abs(points) > RULES.ajusteMaximo) return {ok:false,error:`El ajuste debe estar entre −${RULES.ajusteMaximo} y +${RULES.ajusteMaximo}.`};
+      if(reason.trim().length < 8) return {ok:false,error:"Escribe un motivo claro (mínimo 8 caracteres)."};
+      if(balance(phone) + points < 0) return {ok:false,error:"El saldo no puede quedar negativo."};
+      addLedger({phone, type:"ajuste", points, ref:"manual", by:"Gerente", detail:reason.trim()});
+      alert("warn",`Ajuste manual de ${points>0?"+":""}${points} pts a ${phone}: "${reason.trim()}"`);
+      save();
+      return {ok:true};
+    },
+
+    reset(){ db = {customers:{}, orders:{}, ledger:[], alerts:[], otps:{}, redeem:{}, seq:1}; save(); }
+  };
+  function driverName(id){ return (DRIVERS.find(d=>d.id===id)||{}).name || id; }
+})();
+
+/* ============================================================
+   INTERFAZ
+   ============================================================ */
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const msg = (el, type, text) => { $(el).innerHTML = `<div class="msg ${type}">${esc(text)}</div>`; };
+const fmt = iso => new Date(iso).toLocaleString("es-MX",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"});
+let me = null; try{ me = sessionStorage.getItem("puntos-me"); }catch(e){}
+
+document.querySelectorAll("nav button").forEach(b => b.onclick = () => {
+  document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("on", x===b));
+  ["cliente","repartidor","gerente"].forEach(v => $("v-"+v).classList.toggle("hide", v!==b.dataset.v));
+  renderAll();
+});
+
+/* --- Cliente --- */
+$("c-sendotp").onclick = () => {
+  const r = Server.requestOtp($("c-phone").value.trim(), $("c-name").value);
+  if(!r.ok) return msg("c-loginmsg","bad",r.error);
+  $("c-otpbox").classList.remove("hide");
+  msg("c-loginmsg","warn",`Demo: tu código SMS es ${r.demoCode} (en la app real llega por mensaje).`);
+};
+$("c-verify").onclick = () => {
+  const phone = $("c-phone").value.trim();
+  const r = Server.verifyOtp(phone, $("c-otp").value.trim());
+  if(!r.ok) return msg("c-loginmsg","bad",r.error);
+  me = phone; try{ sessionStorage.setItem("puntos-me", me); }catch(e){}
+  $("c-loginmsg").innerHTML=""; $("c-otpbox").classList.add("hide"); $("c-otp").value="";
+  renderAll();
+};
+$("c-logout").onclick = () => { me=null; try{ sessionStorage.removeItem("puntos-me"); }catch(e){} Server.cancelRedeem; renderAll(); };
+$("c-rcancel").onclick = () => { Server.cancelRedeem(me); renderAll(); };
+
+function renderCliente(){
+  const c = me && Server.getCustomer(me);
+  $("c-login").classList.toggle("hide", !!c);
+  $("c-app").classList.toggle("hide", !c);
+  if(!c) return;
+  $("c-hello").textContent = c.name;
+  const bal = Server.balance(me);
+  $("c-points").textContent = bal;
+  const pend = Server.ordersFor(me).filter(o=>o.status==="en camino");
+  $("c-pending").innerHTML = pend.length
+    ? `<h2>Tu pedido va en camino</h2>` + pend.map(o=>`<p class="muted">Pedido ${o.id} · $${o.amount}. Dale este código al repartidor <b>solo cuando recibas tu pedido</b>:</p><div class="code">${o.deliveryCode}</div><p class="muted">Ganarás ${Math.floor(o.amount/Server.RULES.pesosPorPunto)} pts al confirmar.</p>`).join("")
+    : `<h2>Sin pedidos en camino</h2><p class="muted">Cuando el restaurante registre tu pedido, aquí aparecerá tu código de entrega.</p>`;
+  $("c-rewards").innerHTML = Server.REWARDS.map(r=>`<div class="reward"><div><b>${r.name}</b><div class="muted">${r.cost} pts</div></div><button class="btn ${bal>=r.cost?"":"ghost"}" style="margin:0" ${bal>=r.cost?"":"disabled"} data-r="${r.id}">${bal>=r.cost?"Canjear":"Faltan "+(r.cost-bal)}</button></div>`).join("");
+  $("c-rewards").querySelectorAll("button[data-r]").forEach(b=>b.onclick = async ()=>{ const r = await Server.startRedeem(me,b.dataset.r); if(r.ok) tick(); });
+  const led = Server.ledger(me).slice().reverse();
+  $("c-ledger").innerHTML = led.length ? `<table><tr><th>Fecha</th><th>Detalle</th><th>Pts</th></tr>${led.map(e=>`<tr><td>${fmt(e.at)}</td><td>${esc(e.detail)}</td><td><b>${e.points>0?"+":""}${e.points}</b></td></tr>`).join("")}</table>` : `<p class="muted">Aún no tienes movimientos.</p>`;
+  tick();
+}
+async function tick(){
+  if(!me){ $("c-redeembox").classList.add("hide"); return; }
+  const cur = await Server.currentRedeemCode(me);
+  $("c-redeembox").classList.toggle("hide", !cur);
+  $("c-rewards").classList.toggle("hide", !!cur);
+  if(cur){ $("c-rcode").textContent = cur.code; $("c-rbar").style.width = (cur.left/Server.RULES.vigenciaCodigoCanjeSeg*100)+"%"; }
+}
+setInterval(tick, 1000);
+
+/* --- Repartidor --- */
+$("r-driver").innerHTML = Server.DRIVERS.map(d=>`<option value="${d.id}">${d.name}</option>`).join("");
+$("r-driver").onchange = renderRepartidor;
+function renderRepartidor(){
+  const d = $("r-driver").value;
+  const list = Server.ordersForDriver(d);
+  $("r-orders").innerHTML = list.length ? list.map(o=>{
+    const c = Server.getCustomer(o.phone);
+    return `<div class="card" style="margin:8px 0;background:var(--bg)"><b>${o.id}</b> · ${esc(c.name)} · $${o.amount}
+      <label>Código de 4 dígitos que te da el cliente al recibir</label>
+      <div class="row"><input id="code-${o.id}" inputmode="numeric" maxlength="4"><button class="btn" style="margin:0;flex:0 0 auto" data-o="${o.id}">Confirmar entrega</button></div>
+      <div id="m-${o.id}"></div></div>`;
+  }).join("") : `<p class="muted">No tienes entregas pendientes.</p><div class="shield">El repartidor no ve el código: solo el cliente lo tiene. Sin código, no hay puntos.</div>`;
+  $("r-orders").querySelectorAll("button[data-o]").forEach(b=>b.onclick = async ()=>{
+    const id=b.dataset.o; const r = await Server.confirmDelivery(id, $("code-"+id).value.trim(), d);
+    if(!r.ok){ msg("m-"+id,"bad",r.error); setTimeout(renderAll,1500); return; }
+    renderAll();
+    msg("r-rmsg","ok",`Entrega ${id} confirmada. El cliente recibió ${r.points} pts${r.note?" ("+r.note+")":""}.`);
+  });
+}
+$("r-redeem").onclick = async () => {
+  const r = await Server.redeemByCode($("r-rcode").value, $("r-driver").value);
+  if(!r.ok) msg("r-rmsg","bad",r.error); else { msg("r-rmsg","ok",`Válido: entrega "${r.reward}" a ${r.customer}.`); $("r-rcode").value=""; }
+  renderAll();
+};
+
+/* --- Gerente --- */
+function custOptions(){ const cs = Server.customers(); return cs.length ? cs.map(c=>`<option value="${c.phone}">${esc(c.name)} · ${c.phone}</option>`).join("") : `<option value="">(registra un cliente primero en la pestaña Cliente)</option>`; }
+$("g-driver").innerHTML = Server.DRIVERS.map(d=>`<option value="${d.id}">${d.name}</option>`).join("");
+$("g-order").onclick = async () => {
+  const r = await Server.createOrder($("g-cust").value, $("g-amount").value, $("g-driver").value);
+  if(!r.ok) return msg("g-omsg","bad",r.error);
+  msg("g-omsg","ok",`Pedido ${r.id} creado. El código de entrega solo aparece en la app del cliente.`); $("g-amount").value=""; renderAll();
+};
+$("g-adjust").onclick = () => {
+  const r = Server.adjust($("g-acust").value, $("g-apts").value, $("g-pin").value, $("g-reason").value);
+  if(!r.ok) msg("g-amsg","bad",r.error); else { msg("g-amsg","ok","Ajuste aplicado y registrado."); $("g-apts").value=$("g-pin").value=$("g-reason").value=""; }
+  renderAll();
+};
+$("g-reset").onclick = () => { Server.reset(); me=null; try{ sessionStorage.removeItem("puntos-me"); }catch(e){} renderAll(); };
+function renderGerente(){
+  const sel1=$("g-cust").value, sel2=$("g-acust").value;
+  $("g-cust").innerHTML = $("g-acust").innerHTML = custOptions();
+  if(sel1) $("g-cust").value=sel1; if(sel2) $("g-acust").value=sel2;
+  const al = Server.alerts();
+  $("g-alerts").innerHTML = al.length ? al.slice(0,12).map(a=>`<div class="msg ${a.level}">${fmt(a.at)} · ${esc(a.text)}</div>`).join("") : `<p class="muted">Sin alertas. Prueba poner un código de entrega incorrecto 3 veces.</p>`;
+  const led = Server.ledger().slice().reverse();
+  $("g-ledger").innerHTML = led.length ? `<table><tr><th>#</th><th>Fecha</th><th>Cliente</th><th>Tipo</th><th>Pts</th><th>Por</th></tr>${led.map(e=>`<tr><td>${e.id}</td><td>${fmt(e.at)}</td><td>${e.phone}</td><td><span class="pill">${e.type}</span><div class="muted">${esc(e.detail)}</div></td><td><b>${e.points>0?"+":""}${e.points}</b></td><td>${esc(e.by)}</td></tr>`).join("")}</table>` : `<p class="muted">Sin movimientos todavía.</p>`;
+  const R = Server.RULES;
+  $("g-rules").innerHTML = `• 1 punto por cada $${R.pesosPorPunto}, solo con pedido entregado y código del cliente<br>• Máx. ${R.maxPedidosConPuntosPorDia} pedidos con puntos y ${R.maxPuntosPorDia} pts por cliente al día<br>• ${R.intentosCodigoEntrega} intentos de código de entrega, luego se bloquea<br>• Código de canje cambia cada ${R.vigenciaCodigoCanjeSeg} s y es de un solo uso<br>• Ajustes manuales: PIN, motivo y máx. ±${R.ajusteMaximo} pts<br>• Puntos caducan a los ${R.caducidadMeses} meses`;
+}
+
+function renderAll(){ renderCliente(); renderRepartidor(); renderGerente(); }
+renderAll();
+</script>
+</body>
+</html>
